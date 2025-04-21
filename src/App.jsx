@@ -6,7 +6,8 @@ import Score from './components/Score';
 
 function App() {
   const [offset, setOffset] = useState(0);
-  const POKEMON_API = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=2`;
+  const [level, setLevel] = useState(1);
+  const POKEMON_API = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${level}`;
 
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
@@ -18,7 +19,7 @@ function App() {
 
   useEffect(() => {
     fetchPokemons();
-  }, [offset]);
+  },[offset, level]);
 
   const fetchPokemons = async () => {
     const res = await fetch(POKEMON_API);
@@ -86,9 +87,20 @@ function App() {
 
   };
 
-  const handleResetGame = () => {
-    setOffset((prevOffset) => prevOffset + 8); // Aumentar el offset en 8 cada vez
-  };
+  const getRandomOffset = () => Math.floor(Math.random() * 1000);
+
+const handleResetGame = () => {
+  setOffset(getRandomOffset());
+};
+
+const increaseLimit = () => {
+  setLevel((prevLevel) => {
+    const newLevel = Math.min(prevLevel + 1, 100);
+    return newLevel;
+  });
+  setOffset(getRandomOffset()); 
+};
+
 
   return (
     <>
@@ -96,6 +108,9 @@ function App() {
       <div className="app">
         <Score score={score} bestScore={bestScore} />
         <button onClick={handleResetGame}>Reiniciar Juego</button>
+        <button onClick={increaseLimit}>
+  Aumentar Dificultad (Actual: {level} pokémon)
+</button>
         <div className="card-grid">
           {cards.map((card) => (
             <CardPokemory
