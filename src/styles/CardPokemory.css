@@ -10,9 +10,7 @@
 }
 
 .memory-card {
-    width: 100px;
-    height: 100px;
-    perspective: 1000px;
+    height: 26.5rem;
     cursor: pointer;
 }
 
@@ -45,4 +43,7 @@
 
 .memory-card.flipped .back {
     transform: rotateY(180deg);
+}
+.mayus{
+    text-transform: uppercase;
 }
