@@ -1,12 +1,45 @@
-# React + Vite
+#  Pokemory - Gioco di Memoria Pokémon
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Pokemory è un semplice gioco di memoria sviluppato con **React**, dove il giocatore deve abbinare coppie di Pokémon uguali. Ogni volta che completi un livello, puoi aumentare la difficoltà per sbloccare nuovi Pokémon casuali.
 
-Currently, two official plugins are available:
+##  Come si gioca
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Clicca sull'immagine di avvio per iniziare il gioco.
+2. Scopri le carte e cerca di ricordare dove si trovano i Pokémon.
+3. Abbina le coppie corrette per completare il livello.
+4. Una volta completato, puoi:
+   - Riavviare il gioco
+   - Aumentare la difficoltà per un livello successivo con più Pokémon
 
-## Expanding the ESLint configuration
+##  Funzionalità
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Recupero dinamico dei Pokémon dalla [PokéAPI](https://pokeapi.co)
+- Sistema di punteggio e miglior punteggio salvato localmente
+- Livelli progressivi fino a un massimo di 100 Pokémon
+- Offset casuale per ogni partita (nessun gioco è uguale!)
+- Interfaccia responsive e interattiva
+
+##  Tecnologie Utilizzate
+
+- React
+- JavaScript (ES6+)
+- CSS
+- PokéAPI
+
+## Installazione e Avvio
+
+1. **Scarica o clona il repository**
+   Apri il prompt dei comandi o PowerShell ed esegui:
+
+   ```bash
+   git clone https://github.com/rudyhuacasi/react-scheda-memoria
+   cd react-scheda-memoria
+
+2. **Installa le dipendenze**
+    ```bash
+    npm install
+
+3. **Avvia il progetto in modalità sviluppo**
+    ```bash
+    npm run dev
+
