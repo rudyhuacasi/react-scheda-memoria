@@ -13,6 +13,7 @@ function App() {
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
   const [score, setScore] = useState(0);
+  const [step, setStep] = useState(0);
   const [bestScore, setBestScore] = useState(
     Number(localStorage.getItem('bestScore')) || 0
   );
@@ -20,6 +21,12 @@ function App() {
   useEffect(() => {
     fetchPokemons();
   },[offset, level]);
+
+  useEffect(() => {
+    if (matched.length === level) {
+      setTimeout(() => setStep(2), 500);
+    }
+  }, [matched, level]);
 
   const fetchPokemons = async () => {
     const res = await fetch(POKEMON_API);
@@ -87,10 +94,16 @@ function App() {
 
   };
 
+  // inizare a andare avanti con la validazione
+  const nextStep = () => {
+      setStep(step + 1);
+  };
+
   const getRandomOffset = () => Math.floor(Math.random() * 1000);
 
 const handleResetGame = () => {
   setOffset(getRandomOffset());
+  setTimeout(() => setStep(1), 1000);
 };
 
 const increaseLimit = () => {
@@ -99,6 +112,7 @@ const increaseLimit = () => {
     return newLevel;
   });
   setOffset(getRandomOffset()); 
+  setTimeout(() => setStep(1), 1000);
 };
 
 
@@ -107,23 +121,39 @@ const increaseLimit = () => {
       <Title />
       <div className="app">
         <Score score={score} bestScore={bestScore} />
-        <button onClick={handleResetGame}>Reiniciar Juego</button>
-        <button onClick={increaseLimit}>
-  Aumentar Dificultad (Actual: {level} pokémon)
-</button>
-        <div className="card-grid">
-          {cards.map((card) => (
-            <CardPokemory
-              key={card.uniqueKey}
-              card={card}
-              onClick={handleCardClick}
-              isFlipped={
-                flipped.find((c) => c.uniqueKey === card.uniqueKey) ||
-                matched.includes(card.name)
-              }
-            />
-          ))}
-        </div>
+        { step === 0 &&( <img onClick={nextStep} className='curso w-25 rounded-4' src="/images/inizia_gioco.jpg" alt="" />)}
+        { step === 1 && (
+          <div className='container'>
+            <h2>LIVELLO  {level}</h2>
+            <div className="row g-4 my-5">
+              {cards.map((card) => (
+                <CardPokemory
+                  key={card.uniqueKey}
+                  card={card}
+                  onClick={handleCardClick}
+                  isFlipped={
+                    flipped.find((c) => c.uniqueKey === card.uniqueKey) ||
+                    matched.includes(card.name)
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        { step === 2 &&( 
+        <div className="end-screen">
+            <h2>Congratulazioni! Hai completato il livello {level}.</h2>
+            <div className="container mt-4 mb-5 d-flex justify-content-center">
+              <button className='btn' onClick={handleResetGame}>Riavvia Gioco</button>
+              <button className='ms-5 livello' onClick={increaseLimit}>
+                <span>PROSSIMO LIVELLO</span>
+              </button>
+            </div>
+
+          </div>
+        )}
+
+
       </div>
     </>
   );
