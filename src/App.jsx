@@ -52,7 +52,6 @@ function App() {
     setCards(shuffleArray(duplicated));
     setFlipped([]);
     setMatched([]);
-    setScore(0);
   };
 
   const shuffleArray = (array) => {
@@ -101,19 +100,23 @@ function App() {
 
   const getRandomOffset = () => Math.floor(Math.random() * 1000);
 
-const handleResetGame = () => {
-  setOffset(getRandomOffset());
-  setTimeout(() => setStep(1), 1000);
-};
+  const handleResetGame = () => {
+    setLevel(1);             
+    setScore(0);             
+    setMatched([]);          
+    setFlipped([]);
+    setOffset(getRandomOffset()); 
+    setTimeout(() => setStep(1), 1000); 
+  };
 
-const increaseLimit = () => {
-  setLevel((prevLevel) => {
-    const newLevel = Math.min(prevLevel + 1, 100);
-    return newLevel;
-  });
-  setOffset(getRandomOffset()); 
-  setTimeout(() => setStep(1), 1000);
-};
+  const increaseLimit = () => {
+    setLevel((prevLevel) => {
+      const newLevel = Math.min(prevLevel + 1, 100);
+      return newLevel;
+    });
+    setOffset(getRandomOffset()); 
+    setTimeout(() => setStep(1), 1000);
+  };
 
 
   return (
